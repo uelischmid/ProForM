@@ -1,0 +1,20 @@
+Simulation settings:
+              var  val
+1         stratum   UM
+2     cellsize_m2  100
+3            nrow    8
+4            ncol   12
+5           ncell   96
+6      simarea_m2 9600
+7      simarea_ha 0.96
+8  cohortspercell    2
+9        ncohorts  192
+10         aspect  340
+11          slope   20
+12      site_qual    5
+13       reg_qual    5
+14    spc_sh_aalb   30
+15    spc_sh_apse    0
+16    spc_sh_fsyl   70
+17    spc_sh_pabi    0
+18         spc_pr  100

@@ -1,0 +1,20 @@
+parameter;value;unit;type;explanation
+sim_name;HM_example_mgm;NA;string;simulation name, used for naming output folder
+sim_init;examples/init_HM_example.csv;NA;string;path to CSV-file containing initialisation data within init/-subfolder
+sim_param;paramfordyn_cal.csv;NA;string;path to CSV-file containing forest dynamics parameter values within paramfordyn/-subfolder
+sim_time;30;years;integer;number of time steps to be simulated
+sim_seed;1;NA;integer;seed for random number generator
+sim_stratum;HM;NA;string;name of stratum
+sim_cells_nrow;14;NA;integer;number of rows of cells that make up simulation area
+sim_cells_ncol;14;NA;integer;EVEN number of columns of cells that make up simulation area
+sim_aspect;110;degree;integer;aspect of simulated plane in degrees from north
+sim_slope;19;degree;integer;slope angle of simulated plane in degrees
+sim_qual_site;4;NA;integer;site quality from 1 (bad) to 5 (good)
+sim_qual_reg;5;NA;integer;regeneration quality from 1 (bad) to 5 (good)
+spc_sh_aalb;40;percent;integer;"share of Abies alba in ""natural"" regeneration"
+spc_sh_apse;0;percent;integer;"share of Acer pseudoplatanus in ""natural"" regeneration"
+spc_sh_fsyl;0;percent;integer;"share of Fagus sylvatica in ""natural"" regeneration"
+spc_sh_pabi;60;percent;integer;"share of Picea abies in ""natural"" regeneration"
+spc_pressure;80;percent;integer;"pressure of ""natural"" regeneration vs. current stand composition"
+mgm_type;RDC_tree;NA;string;"management type: either ""none"", ""RDC_tree"", or ""RDC_cohort"""
+mgm_param;examples/mgm_HM_RDC5_example.csv;NA;string;path to CSV-file containing management parameter values within mgm/-subfolder

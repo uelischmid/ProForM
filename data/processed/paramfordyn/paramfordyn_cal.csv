@@ -1,0 +1,413 @@
+﻿function;f.expl;stratum;species;p.name;p.value;p.expl
+f.init_calculate_param;Calculate additional parameters;SM;all;str_cellsize;100;Cell size in m2
+f.init_calculate_param;Calculate additional parameters;UM;all;str_cellsize;100;Cell size in m2
+f.init_calculate_param;Calculate additional parameters;HM;all;str_cellsize;51.02;Cell size in m2
+f.init_calculate_param;Calculate additional parameters;SA;all;str_cellsize;39.06;Cell size in m2
+f.init_calculate_param;Calculate additional parameters;SM;all;pf_gi_min;0.6;Minmal value of germination prefactor at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;SM;all;pf_dh_min;0.4;Minimal value of regeneration height growth at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;SM;all;pf_dd_min;0.5;Minimal value of adult diameter growth at site quality 1
+f.init_calculate_param;Calculate additional parameters;UM;all;pf_gi_min;0.7;Minmal value of germination prefactor at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;UM;all;pf_dh_min;0.55;Minimal value of regeneration height growth at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;UM;all;pf_dd_min;0.65;Minimal value of adult diameter growth at site quality 1
+f.init_calculate_param;Calculate additional parameters;HM;all;pf_gi_min;0.6;Minmal value of germination prefactor at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;HM;all;pf_dh_min;0.5;Minimal value of regeneration height growth at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;HM;all;pf_dd_min;0.4;Minimal value of adult diameter growth at site quality 1
+f.init_calculate_param;Calculate additional parameters;SA;all;pf_gi_min;0.4;Minmal value of germination prefactor at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;SA;all;pf_dh_min;0.4;Minimal value of regeneration height growth at regeneration quality 1
+f.init_calculate_param;Calculate additional parameters;SA;all;pf_dd_min;0.65;Minimal value of adult diameter growth at site quality 1
+f.init_create_simtable;Create simulation table;SM;all;topo_sha_even;0.8;"Share of ""even"" cells"
+f.init_create_simtable;Create simulation table;SM;all;topo_sha_mound;0.1;"Share of ""mound"" cells"
+f.init_create_simtable;Create simulation table;SM;all;topo_sha_pit;0.1;"Share of ""pit"" cells"
+f.init_create_simtable;Create simulation table;UM;all;topo_sha_even;0.5;"Share of ""even"" cells"
+f.init_create_simtable;Create simulation table;UM;all;topo_sha_mound;0.25;"Share of ""mound"" cells"
+f.init_create_simtable;Create simulation table;UM;all;topo_sha_pit;0.25;"Share of ""pit"" cells"
+f.init_create_simtable;Create simulation table;HM;all;topo_sha_even;0.3;"Share of ""even"" cells"
+f.init_create_simtable;Create simulation table;HM;all;topo_sha_mound;0.3;"Share of ""mound"" cells"
+f.init_create_simtable;Create simulation table;HM;all;topo_sha_pit;0.4;"Share of ""pit"" cells"
+f.init_create_simtable;Create simulation table;SA;all;topo_sha_even;0.5;"Share of ""even"" cells"
+f.init_create_simtable;Create simulation table;SA;all;topo_sha_mound;0.25;"Share of ""mound"" cells"
+f.init_create_simtable;Create simulation table;SA;all;topo_sha_pit;0.25;"Share of ""pit"" cells"
+f.init_create_simtable;Create simulation table;SM;all;cq_min;0.5;Minimal cell quality value
+f.init_create_simtable;Create simulation table;SM;all;cq_max;1;Maximal cell quality value
+f.init_create_simtable;Create simulation table;UM;all;cq_min;0.3;Minimal cell quality value
+f.init_create_simtable;Create simulation table;UM;all;cq_max;0.8;Maximal cell quality value
+f.init_create_simtable;Create simulation table;HM;all;cq_min;0.1;Minimal cell quality value
+f.init_create_simtable;Create simulation table;HM;all;cq_max;0.6;Maximal cell quality value
+f.init_create_simtable;Create simulation table;SA;all;cq_min;0;Minimal cell quality value
+f.init_create_simtable;Create simulation table;SA;all;cq_max;0.5;Maximal cell quality value
+f.aux_CIh & f.aux_CId;Calculate competition indices for hgreg and dgadu;SM;all;cihd_ncells;7;Number of cells considered for CIh and CId
+f.aux_CIh & f.aux_CId;Calculate competition indices for hgreg and dgadu;UM;all;cihd_ncells;7;Number of cells considered for CIh and CId
+f.aux_CIh & f.aux_CId;Calculate competition indices for hgreg and dgadu;HM;all;cihd_ncells;19;Number of cells considered for CIh and CId
+f.aux_CIh & f.aux_CId;Calculate competition indices for hgreg and dgadu;SA;all;cihd_ncells;19;Number of cells considered for CIh and CId
+f.aux_CIh;Calculate competition index for hgreg;SM;aalb;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;SM;fsyl;cih_wmax;4;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;SM;apse;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;UM;pabi;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;UM;aalb;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;UM;fsyl;cih_wmax;4;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;UM;apse;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;HM;pabi;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;HM;aalb;cih_wmax;10;Max. weight assigned
+f.aux_CIh;Calculate competition index for hgreg;SA;pabi;cih_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;SM;aalb;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;SM;fsyl;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;SM;apse;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;UM;pabi;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;UM;aalb;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;UM;fsyl;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;UM;apse;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;HM;pabi;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;HM;aalb;cid_wmax;10;Max. weight assigned
+f.aux_CId;Calculate competition index for dgadu;SA;pabi;cid_wmax;10;Max. weight assigned
+f.aux_CIc;Calculate competition index for hcb;SM;aalb;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;SM;fsyl;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;SM;apse;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;UM;pabi;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;UM;aalb;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;UM;fsyl;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;UM;apse;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;HM;pabi;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;HM;aalb;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_CIc;Calculate competition index for hcb;SA;pabi;cic_frac;0.5;neighboring trees with DBH > frac * DBH are considered for CIc
+f.aux_spcprob;Calculate species probabilities at species change;SM;all;spc_dmin;20;Threshold value of DBH to include as seed trees
+f.aux_spcprob;Calculate species probabilities at species change;UM;all;spc_dmin;20;Threshold value of DBH to include as seed trees
+f.aux_spcprob;Calculate species probabilities at species change;HM;all;spc_dmin;20;Threshold value of DBH to include as seed trees
+f.aux_spcprob;Calculate species probabilities at species change;SA;all;spc_dmin;20;Threshold value of DBH to include as seed trees
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_int;-0.24469321;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_int;-0.24469321;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_int;-0.24469321;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_h;0.603243746;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_h;0.603243746;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_h;0.603243746;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_ci;-0.004282193;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_ci;-0.004282193;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_ci;-0.004282193;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_dd1;0.000453075;Coefficient for DDsum1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_dd1;0.000453075;Coefficient for DDsum1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_dd1;0.000453075;Coefficient for DDsum1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_spei1;0.084886294;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_spei1;0.084886294;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_spei1;0.084886294;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_spei2;0.064001122;Coefficient for SPEI2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_spei2;0.064001122;Coefficient for SPEI2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_spei2;0.064001122;Coefficient for SPEI2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_topo_mound;-0.049460184;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_topo_mound;-0.049460184;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_topo_mound;-0.049460184;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;pabi;hgreg_c_topo_pit;-0.194305448;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;pabi;hgreg_c_topo_pit;-0.194305448;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;pabi;hgreg_c_topo_pit;-0.194305448;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_int;0.873019965;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_int;0.873019965;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_int;0.873019965;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_h;0.438133791;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_h;0.438133791;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_h;0.438133791;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_ci;-0.001756801;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_ci;-0.001756801;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_ci;-0.001756801;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_dd2;5.76E-05;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_dd2;5.76E-05;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_dd2;5.76E-05;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_spei1;-0.013232248;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_spei1;-0.013232248;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_spei1;-0.013232248;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_slasp;-0.348499905;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_slasp;-0.348499905;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_slasp;-0.348499905;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_topo_mound;-0.288040296;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_topo_mound;-0.288040296;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_topo_mound;-0.288040296;Coefficient topography level mound
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;aalb;hgreg_c_topo_pit;-0.83228034;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;aalb;hgreg_c_topo_pit;-0.83228034;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;aalb;hgreg_c_topo_pit;-0.83228034;Coefficient topography level pit
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_int;1.021530466;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_int;1.021530466;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_c_h;0.20165894;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_c_h;0.20165894;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_c_ci;-0.001559784;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_c_ci;-0.001559784;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_c_dd2;0.000547174;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_c_dd2;0.000547174;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_c_spei1;-0.035182522;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_c_spei1;-0.035182522;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;fsyl;hgreg_c_slasp;0.742372703;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;fsyl;hgreg_c_slasp;0.742372703;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_int;0.269961299;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_int;0.269961299;Intersect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_h;0.339394949;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_h;0.339394949;Coefficient for height
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_ci;-0.002652042;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_ci;-0.002652042;Coefficient for competition index
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_dd1;-0.000550544;Coefficient for DDsum1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_dd1;-0.000550544;Coefficient for DDsum1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_dd2;0.001057828;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_dd2;0.001057828;Coefficient for DDsum2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_spei1;0.087624727;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_spei1;0.087624727;Coefficient for SPEI1
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_spei2;0.153985822;Coefficient for SPEI2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_spei2;0.153985822;Coefficient for SPEI2
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;apse;hgreg_c_slasp;0.782753541;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;apse;hgreg_c_slasp;0.782753541;Coefficient for slopeaspect
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;all;hgreg_v_dd1;1653.333333;Mean DDsum Jan-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;all;hgreg_v_dd2;2146.622685;Mean DDsum Jan-Dec
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;all;hgreg_v_spei1;0.022509827;Mean SPEI Apr-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SM;all;hgreg_v_spei2;0.041479732;Mean SPEI Apr-Oct
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;all;hgreg_v_dd1;1204.002263;Mean DDsum Jan-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;all;hgreg_v_dd2;1560.06893;Mean DDsum Jan-Dec
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;all;hgreg_v_spei1;0.081100862;Mean SPEI Apr-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;UM;all;hgreg_v_spei2;0.073315134;Mean SPEI Apr-Oct
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;all;hgreg_v_dd1;902.6520282;Mean DDsum Jan-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;all;hgreg_v_dd2;1144.248413;Mean DDsum Jan-Dec
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;all;hgreg_v_spei1;0.060995428;Mean SPEI Apr-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;HM;all;hgreg_v_spei2;0.07420205;Mean SPEI Apr-Oct
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;all;hgreg_v_dd1;677.5300347;Mean DDsum Jan-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;all;hgreg_v_dd2;837.8102431;Mean DDsum Jan-Dec
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;all;hgreg_v_spei1;0.082543769;Mean SPEI Apr-Aug
+f.dyn_hgreg;Calculate height growth for D < 12 cm;SA;all;hgreg_v_spei2;0.101109041;Mean SPEI Apr-Oct
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;pabi;hgadu_asym;3532.924193;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;pabi;hgadu_xmid;26.25940451;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;pabi;hgadu_scal;12.33846835;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;pabi;hgadu_asym;3377.825914;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;pabi;hgadu_xmid;26.36804816;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;pabi;hgadu_scal;13.28570668;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SA;pabi;hgadu_asym;2734.281964;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SA;pabi;hgadu_xmid;21.12100101;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SA;pabi;hgadu_scal;11.48712644;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;aalb;hgadu_asym;3828.556949;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;aalb;hgadu_xmid;25.6945539;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;aalb;hgadu_scal;13.18085199;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;aalb;hgadu_asym;3599.335153;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;aalb;hgadu_xmid;28.09879978;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;aalb;hgadu_scal;13.96797479;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;aalb;hgadu_asym;3558.635184;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;aalb;hgadu_xmid;30.27264582;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;HM;aalb;hgadu_scal;15.98281661;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;fsyl;hgadu_asym;3601.661978;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;fsyl;hgadu_xmid;15.63016549;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;fsyl;hgadu_scal;17.21012995;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;fsyl;hgadu_asym;2972.725447;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;fsyl;hgadu_xmid;12.4400364;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;fsyl;hgadu_scal;15.86080405;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;apse;hgadu_asym;3027.04807;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;apse;hgadu_xmid;10.45001215;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;SM;apse;hgadu_scal;10.22663415;Scale
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;apse;hgadu_asym;2446.509644;Height asymptote
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;apse;hgadu_xmid;8.937011983;Midpoint
+f.dyn_hgadu;Calculate height growth for D >= 12 cm;UM;apse;hgadu_scal;8.078449539;Scale
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;pabi;dgreg_int;-1.812746403;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;HM;pabi;dgreg_int;-1.812746403;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SA;pabi;dgreg_int;-1.812746403;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;pabi;dgreg_h;0.016251895;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;HM;pabi;dgreg_h;0.016251895;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SA;pabi;dgreg_h;0.016251895;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;aalb;dgreg_int;-1.776619404;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;aalb;dgreg_int;-1.776619404;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;HM;aalb;dgreg_int;-1.776619404;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;aalb;dgreg_h;0.015973995;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;aalb;dgreg_h;0.015973995;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;HM;aalb;dgreg_h;0.015973995;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;fsyl;dgreg_int;-0.726577091;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;fsyl;dgreg_int;-0.726577091;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;fsyl;dgreg_h;0.007896747;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;fsyl;dgreg_h;0.007896747;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;apse;dgreg_int;-0.667291347;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;apse;dgreg_int;-0.667291347;Intersect
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;SM;apse;dgreg_h;0.007440703;Coefficient for height
+f.dyn_dgreg;Calculate diameter growth for D < 12 cm;UM;apse;dgreg_h;0.007440703;Coefficient for height
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;apse;dgadu_ddmax;1.11226972;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;fsyl;dgadu_ddmax;1.053204638;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;aalb;dgadu_ddmax;1.408249032;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;apse;dgadu_ddmax;0.677764756;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;fsyl;dgadu_ddmax;0.74128364;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;aalb;dgadu_ddmax;1.099096633;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;pabi;dgadu_ddmax;0.983827493;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;aalb;dgadu_ddmax;1.042631984;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;pabi;dgadu_ddmax;0.897834213;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SA;pabi;dgadu_ddmax;0.704237622;Max. diameter growth (cm/y) between DBH 12-dmaxfull
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;apse;dgadu_dmaxfull;50;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;apse;dgadu_dmaxfull;50;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;fsyl;dgadu_dmaxfull;75;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;fsyl;dgadu_dmaxfull;75;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;aalb;dgadu_dmaxfull;90;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;aalb;dgadu_dmaxfull;90;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;aalb;dgadu_dmaxfull;90;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;pabi;dgadu_dmaxfull;80;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;pabi;dgadu_dmaxfull;80;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SA;pabi;dgadu_dmaxfull;80;Max. diameter (cm) at which dD_max = ddmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;apse;dgadu_dmax0;82;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;apse;dgadu_dmax0;82;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;fsyl;dgadu_dmax0;100;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;fsyl;dgadu_dmax0;100;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;aalb;dgadu_dmax0;120;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;aalb;dgadu_dmax0;120;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;aalb;dgadu_dmax0;120;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;pabi;dgadu_dmax0;116;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;pabi;dgadu_dmax0;116;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SA;pabi;dgadu_dmax0;116;Max. diameter (cm) at which dD = 0
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;all;dgadu_cidmax;250;Value of CId at which minimal dD is selected, parametrization depends on value of cid_wmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;all;dgadu_cidmax;250;Value of CId at which minimal dD is selected, parametrization depends on value of cid_wmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;all;dgadu_cidmax;400;Value of CId at which minimal dD is selected, parametrization depends on value of cid_wmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SA;all;dgadu_cidmax;400;Value of CId at which minimal dD is selected, parametrization depends on value of cid_wmax
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SM;all;dgadu_cidexp;1.5;Exponent for normalizing CId
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;UM;all;dgadu_cidexp;1;Exponent for normalizing CId
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;HM;all;dgadu_cidexp;0.5;Exponent for normalizing CId
+f.dyn_dgadu;Calculate diameter growth for D >= 12 cm;SA;all;dgadu_cidexp;0.5;Exponent for normalizing CId
+f.dyn_ingr;Calculate dN at ingrowth;UM;pabi;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;HM;pabi;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;SA;pabi;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;SM;aalb;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;UM;aalb;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;HM;aalb;ingr_nmax;3;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;SM;fsyl;ingr_nmax;6;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;UM;fsyl;ingr_nmax;6;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;SM;apse;ingr_nmax;6;Max. stem number per m2 of trees entering stage 3
+f.dyn_ingr;Calculate dN at ingrowth;UM;apse;ingr_nmax;6;Max. stem number per m2 of trees entering stage 3
+f.dyn_mort;Calculate dN through mortality;UM;pabi;mort_preg;0.12;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;HM;pabi;mort_preg;0.07;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;SA;pabi;mort_preg;0.07;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;SM;aalb;mort_preg;0.21;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;UM;aalb;mort_preg;0.17;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;HM;aalb;mort_preg;0.15;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;SM;fsyl;mort_preg;0.13;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;UM;fsyl;mort_preg;0.12;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;SM;apse;mort_preg;0.1;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;UM;apse;mort_preg;0.09;Annual mortality probability of trees 130 cm H < X < 4 cm DBH, parametrization depends on sn_nmax
+f.dyn_mort;Calculate dN through mortality;SM;aalb;mort_int;-8.102;Intersect
+f.dyn_mort;Calculate dN through mortality;SM;aalb;mort_D;-0.456;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;SM;aalb;mort_relBAI;-4.25;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;SM;aalb;mort_relBAI2;-0.679;Coefficient for relBAI squared
+f.dyn_mort;Calculate dN through mortality;SM;fsyl;mort_int;-6.317;Intersect
+f.dyn_mort;Calculate dN through mortality;SM;fsyl;mort_D;-0.926;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;SM;fsyl;mort_relBAI;-4.739;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;SM;fsyl;mort_relBAI2;-0.741;Coefficient for relBAI squared
+f.dyn_mort;Calculate dN through mortality;SM;apse;mort_int;-0.125;Intersect
+f.dyn_mort;Calculate dN through mortality;SM;apse;mort_D;-1.426;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;SM;apse;mort_relBAI;-1.39;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;UM;pabi;mort_int;-11.248;Intersect
+f.dyn_mort;Calculate dN through mortality;UM;pabi;mort_D;-0.375;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;UM;pabi;mort_relBAI;-0.763;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;UM;pabi;mort_mD;1.294;Coefficient for mD
+f.dyn_mort;Calculate dN through mortality;UM;aalb;mort_int;-8.102;Intersect
+f.dyn_mort;Calculate dN through mortality;UM;aalb;mort_D;-0.456;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;UM;aalb;mort_relBAI;-4.25;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;UM;aalb;mort_relBAI2;-0.679;Coefficient for relBAI squared
+f.dyn_mort;Calculate dN through mortality;UM;fsyl;mort_int;-6.317;Intersect
+f.dyn_mort;Calculate dN through mortality;UM;fsyl;mort_D;-0.926;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;UM;fsyl;mort_relBAI;-4.739;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;UM;fsyl;mort_relBAI2;-0.741;Coefficient for relBAI squared
+f.dyn_mort;Calculate dN through mortality;UM;apse;mort_int;-0.125;Intersect
+f.dyn_mort;Calculate dN through mortality;UM;apse;mort_D;-1.426;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;UM;apse;mort_relBAI;-1.39;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;HM;pabi;mort_int;-11.248;Intersect
+f.dyn_mort;Calculate dN through mortality;HM;pabi;mort_D;-0.375;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;HM;pabi;mort_relBAI;-0.763;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;HM;pabi;mort_mD;1.294;Coefficient for mD
+f.dyn_mort;Calculate dN through mortality;HM;aalb;mort_int;-8.102;Intersect
+f.dyn_mort;Calculate dN through mortality;HM;aalb;mort_D;-0.456;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;HM;aalb;mort_relBAI;-4.25;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;HM;aalb;mort_relBAI2;-0.679;Coefficient for relBAI squared
+f.dyn_mort;Calculate dN through mortality;SA;pabi;mort_int;-11.248;Intersect
+f.dyn_mort;Calculate dN through mortality;SA;pabi;mort_D;-0.375;Coefficient for diameter
+f.dyn_mort;Calculate dN through mortality;SA;pabi;mort_relBAI;-0.763;Coefficient for relBAI
+f.dyn_mort;Calculate dN through mortality;SA;pabi;mort_mD;1.294;Coefficient for mD
+f.dyn_mort;Calculate dN through mortality;SM;all;mort_c;0.002183;constant
+f.dyn_mort;Calculate dN through mortality;UM;all;mort_c;0.002183;constant
+f.dyn_mort;Calculate dN through mortality;HM;all;mort_c;0.002183;constant
+f.dyn_mort;Calculate dN through mortality;SA;all;mort_c;0.002183;constant
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_dhcbmin_rel;0;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_dhcbmin_rel;0;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_dhcbmin_rel;0;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_cicthreshold1;30;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_cicthreshold1;55;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_cicthreshold1;20;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;UM;pabi;cb_cicthreshold2;100;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;HM;pabi;cb_cicthreshold2;110;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;SA;pabi;cb_cicthreshold2;100;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_crlimit;0.1;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_cicthreshold1;20;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_cicthreshold1;30;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_cicthreshold1;55;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;SM;aalb;cb_cicthreshold2;50;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;UM;aalb;cb_cicthreshold2;80;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;HM;aalb;cb_cicthreshold2;110;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_crlimit;0.2;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_crlimit;0.2;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_cicthreshold1;27;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_cicthreshold1;30;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;SM;fsyl;cb_cicthreshold2;70;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;UM;fsyl;cb_cicthreshold2;125;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_dhcbmax_abs;100;Max. rate of change (cm/y) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_dhcbmax_rel;0.1;Max. rate of change (share of H) of HCB
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_dhcbmin_rel;0.5;Min. rate of change (share of max * -1)
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_crlimit;0.2;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_crlimit;0.2;Smallest possible crown ratio (0 <= x <= 1)
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_cicthreshold1;27;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_cicthreshold1;30;Threshold value of CIc above which dHCB is positive
+f.dyn_hcb;Calculate change in height to crown base;SM;apse;cb_cicthreshold2;70;Threshold value of CIc above which dHCB is at its maximum
+f.dyn_hcb;Calculate change in height to crown base;UM;apse;cb_cicthreshold2;125;Threshold value of CIc above which dHCB is at its maximum
+f.flag_germ;Decide if germination occurs;SM;all;germ_cumprob;0.95;Share of cells germinated after germ_t_cov_thr years
+f.flag_germ;Decide if germination occurs;UM;all;germ_cumprob;0.95;Share of cells germinated after germ_t_cov_thr years
+f.flag_germ;Decide if germination occurs;HM;all;germ_cumprob;0.95;Share of cells germinated after germ_t_cov_thr years
+f.flag_germ;Decide if germination occurs;SA;all;germ_cumprob;0.95;Share of cells germinated after germ_t_cov_thr years
+f.flag_germ;Decide if germination occurs;SM;all;germ_tgerm;5;Time in y until germ_cumprob% of the cells have germinated
+f.flag_germ;Decide if germination occurs;UM;all;germ_tgerm;15;Time in y until germ_cumprob% of the cells have germinated
+f.flag_germ;Decide if germination occurs;HM;all;germ_tgerm;30;Time in y until germ_cumprob% of the cells have germinated
+f.flag_germ;Decide if germination occurs;SA;all;germ_tgerm;30;Time in y until germ_cumprob% of the cells have germinated
+f.flag_adreg;Decide if advance regeneration is present;SM;all;adreg_p_s4;0;Probability of advance regeneration in stage 4
+f.flag_adreg;Decide if advance regeneration is present;SM;all;adreg_p_s5;0;Probability of advance regeneration in stage 5
+f.flag_adreg;Decide if advance regeneration is present;SM;all;adreg_p_s6;0;Probability of advance regeneration in stage 6
+f.flag_adreg;Decide if advance regeneration is present;SM;all;adreg_p_s7;0;Probability of advance regeneration in stage 7
+f.flag_adreg;Decide if advance regeneration is present;SM;all;adreg_p_s8;0;Probability of advance regeneration in stage 8
+f.flag_adreg;Decide if advance regeneration is present;UM;all;adreg_p_s4;0;Probability of advance regeneration in stage 4
+f.flag_adreg;Decide if advance regeneration is present;UM;all;adreg_p_s5;0;Probability of advance regeneration in stage 5
+f.flag_adreg;Decide if advance regeneration is present;UM;all;adreg_p_s6;0;Probability of advance regeneration in stage 6
+f.flag_adreg;Decide if advance regeneration is present;UM;all;adreg_p_s7;0;Probability of advance regeneration in stage 7
+f.flag_adreg;Decide if advance regeneration is present;UM;all;adreg_p_s8;0;Probability of advance regeneration in stage 8
+f.flag_adreg;Decide if advance regeneration is present;HM;all;adreg_p_s4;0.53;Probability of advance regeneration in stage 4
+f.flag_adreg;Decide if advance regeneration is present;HM;all;adreg_p_s5;0.53;Probability of advance regeneration in stage 5
+f.flag_adreg;Decide if advance regeneration is present;HM;all;adreg_p_s6;0.11;Probability of advance regeneration in stage 6
+f.flag_adreg;Decide if advance regeneration is present;HM;all;adreg_p_s7;0.1;Probability of advance regeneration in stage 7
+f.flag_adreg;Decide if advance regeneration is present;HM;all;adreg_p_s8;0.14;Probability of advance regeneration in stage 8
+f.flag_adreg;Decide if advance regeneration is present;SA;all;adreg_p_s4;0.29;Probability of advance regeneration in stage 4
+f.flag_adreg;Decide if advance regeneration is present;SA;all;adreg_p_s5;0.29;Probability of advance regeneration in stage 5
+f.flag_adreg;Decide if advance regeneration is present;SA;all;adreg_p_s6;0.02;Probability of advance regeneration in stage 6
+f.flag_adreg;Decide if advance regeneration is present;SA;all;adreg_p_s7;0.05;Probability of advance regeneration in stage 7
+f.flag_adreg;Decide if advance regeneration is present;SA;all;adreg_p_s8;0.07;Probability of advance regeneration in stage 8
+f.update_H;Update cohort height;SM;all;germ_h;10;Initial height of regeneration (cm)
+f.update_H;Update cohort height;UM;all;germ_h;10;Initial height of regeneration (cm)
+f.update_H;Update cohort height;HM;all;germ_h;10;Initial height of regeneration (cm)
+f.update_H;Update cohort height;SA;all;germ_h;10;Initial height of regeneration (cm)
+f.update_H;Update cohort height;SM;all;adreg_h;40;Height of advance regeneration (40 <= x < 130) (cm)
+f.update_H;Update cohort height;UM;all;adreg_h;40;Height of advance regeneration (40 <= x < 130) (cm)
+f.update_H;Update cohort height;HM;all;adreg_h;40;Height of advance regeneration (40 <= x < 130) (cm)
+f.update_H;Update cohort height;SA;all;adreg_h;40;Height of advance regeneration (40 <= x < 130) (cm)
