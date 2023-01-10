@@ -2,7 +2,7 @@
 ProForM (Protection Forest Management) is a dynamic simulation model for studying the impacts of management on the protective effect in temperate mountain forest stands.
 
 ProForM was developed by Ueli Schmid, Monika Frehner, and Harald Bugmann at ETH Zurich.  
-The current version 1.0 was released in December 2022.  
+The current version 1.0 was released in January 2023.  
 [![DOI](https://zenodo.org/badge/572127011.svg)](https://zenodo.org/badge/latestdoi/572127011)  
 
 The model may be freely used under the terms of the "GNU GENERAL PUBLIC LICENSE v3" license.
