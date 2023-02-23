@@ -1,13 +1,15 @@
 ################
 ##    NAIS    ##
 ##  PROFILES  ##
-## 25.11.2021 ##
+## 09.01.2023 ##
 ################
 
 ## required inputs
 # param$sim_stratum # from sim-output
 # param$sim_slope # from sim-output
-# natural_hazard # # 'none', 'A' (avalanche), 'LED' (landslide, erosion, debris flow), 'RF' (rockfall), or 'TF' (torrents and floods)
+# param$sim_qual_site # from sim-output
+# natural_hazard # 'none', 'A' (avalanche), 'LED' (landslide, erosion, debris flow), 'RF' (rockfall), or 'TF' (torrents and floods)
+# rockfall_scenario # NA, 'rs1', 'rs2sl1', 'rs2sl2'
 
 nais_profile <- list()
 
@@ -28,7 +30,7 @@ if (param$sim_stratum == "SM") {
   nais_profile$suptr_cr$coni <- c(NA, NA)
   
   # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
   nais_profile$seedl$share <- c(1, 1 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("fsyl")
@@ -41,10 +43,13 @@ if (param$sim_stratum == "SM") {
   
   # diameter distribution
   # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.5, 3))
+  if (param$sim_qual_site <= 3) {
+    d234 <- c(0.22, 0.16, 0.15)
+  } else {
+    d234 <- c(0.38, 0.18, 0.07)
+  }
+  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1], d234)
+  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2], d234)
   
   # canopy cover reduction factor
   nais_profile$cc_red <- 1
@@ -75,7 +80,7 @@ if (param$sim_stratum == "UM") {
   nais_profile$suptr_cr$coni <- c(0.67, NA)
   
   # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
   nais_profile$seedl$share <- c(1, 1 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("aalb", "apse", "fsyl")
@@ -88,58 +93,21 @@ if (param$sim_stratum == "UM") {
   
   # diameter distribution
   # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.6, 3))
+  if (param$sim_qual_site <= 3) {
+    d234 <- c(0.2, 0.14, 0.13)
+  } else {
+    d234 <- c(0.27, 0.15, 0.15)
+  }
+  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1], d234)
+  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2], d234)
   
   # canopy cover reduction factor
   nais_profile$cc_red <- 1
 }
 
 
-# HM1 ---------------------------------------------------------------------
-if (param$sim_stratum == "HM" & stratum_fine == "HM1") { # Haupt- und Nebenareal
-  # species mixture
-  # vectors of length 4 with lower [1] and upper [2] limits for ideal and minimal [3, 4] profile
-  nais_profile$mixture$aalb <- c(0.45, 0.7, 0.35, 0.9)
-  nais_profile$mixture$apse <- NA
-  nais_profile$mixture$fsyl <- NA
-  nais_profile$mixture$pabi <- c(0.3, 0.55, 0.1, 0.65)
-  nais_profile$mixture$coni <- NA
-  
-  # crown ratio
-  # vectors of length 2 with limits for ideal [1] and minimal [2] profile
-  nais_profile$suptr_cr$aalb <- c(NA, NA)
-  nais_profile$suptr_cr$pabi <- c(NA, NA)
-  nais_profile$suptr_cr$coni <- c(0.67, 0.5)
-  
-  # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
-  nais_profile$seedl$share <- c(0.9, 0.9 * 0.8)
-  # species that should be present
-  nais_profile$seedl$species <- c("aalb", "pabi")
-  # number of species that should be present for ideal [1] and minimal [2] profile
-  nais_profile$seedl$species_n <- c(2, 1)
-  
-  # saplings & thicket
-  nais_profile$sapthi <- nais_profile$mixture # canopy cover equals basal area share of mixture
-  nais_profile$sapthi$tot <- c(0.10, 0.07) # total cc of st, limit for ideal [1] and minimal [2] profile
-  
-  # diameter distribution
-  # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.8, 3))
-  
-  # canopy cover reduction factor
-  nais_profile$cc_red <- 0.9
-}
-
-
-# HM2 ---------------------------------------------------------------------
-if (param$sim_stratum == "HM" & stratum_fine == "HM2") { # Haupt- und Nebenareal
+# HM ----------------------------------------------------------------------
+if (param$sim_stratum == "HM") { # Haupt- und Nebenareal
   # species mixture
   # vectors of length 4 with lower [1] and upper [2] limits for ideal and minimal [3, 4] profile
   nais_profile$mixture$aalb <- c(0.5, 0.7, 0.3, 0.9)
@@ -155,7 +123,7 @@ if (param$sim_stratum == "HM" & stratum_fine == "HM2") { # Haupt- und Nebenareal
   nais_profile$suptr_cr$coni <- c(0.67, 0.5)
   
   # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
   nais_profile$seedl$share <- c(0.9, 0.9 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("aalb", "pabi")
@@ -168,18 +136,22 @@ if (param$sim_stratum == "HM" & stratum_fine == "HM2") { # Haupt- und Nebenareal
   
   # diameter distribution
   # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.8, 3))
+  if (param$sim_qual_site <= 3) {
+    d234 <- c(0.17, 0.16, 0.24)
+  } else {
+    d234 <- c(0.18, 0.17, 0.23)
+  }
+  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1], d234)
+  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2], d234)
   
   # canopy cover reduction factor
   nais_profile$cc_red <- 0.9
 }
 
 
-# SA1 ---------------------------------------------------------------------
-if (param$sim_stratum == "SA" & stratum_fine == "SA1") {
+
+# SA ----------------------------------------------------------------------
+if (param$sim_stratum == "SA") {
   # species mixture
   # vectors of length 4 with lower [1] and upper [2] limits for ideal and minimal [3, 4] profile
   nais_profile$mixture$aalb <- NA
@@ -195,8 +167,8 @@ if (param$sim_stratum == "SA" & stratum_fine == "SA1") {
   nais_profile$suptr_cr$coni <- c(1, 0.67)
   
   # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
-  nais_profile$seedl$share <- c(0.75, 0.75 * 0.8)
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
+  nais_profile$seedl$share <- c(0.7, 0.7 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("pabi")
   # number of species that should be present for ideal [1] and minimal [2] profile
@@ -204,54 +176,17 @@ if (param$sim_stratum == "SA" & stratum_fine == "SA1") {
   
   # saplings & thicket
   nais_profile$sapthi <- nais_profile$mixture # canopy cover equals basal area share of mixture
-  nais_profile$sapthi$tot <- c(0.18, 0.13) # total cc of st, limit for ideal [1] and minimal [2] profile
+  nais_profile$sapthi$tot <- c(0.16, 0.12) # total cc of st, limit for ideal [1] and minimal [2] profile
   
   # diameter distribution
   # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.85, 3))
-  
-  # canopy cover reduction factor
-  nais_profile$cc_red <- 0.75
-}
-
-
-# SA2 ---------------------------------------------------------------------
-if (param$sim_stratum == "SA" & stratum_fine == "SA2") {
-  # species mixture
-  # vectors of length 4 with lower [1] and upper [2] limits for ideal and minimal [3, 4] profile
-  nais_profile$mixture$aalb <- NA
-  nais_profile$mixture$apse <- NA
-  nais_profile$mixture$fsyl <- NA
-  nais_profile$mixture$pabi <- c(0, 1, 0, 1)
-  nais_profile$mixture$coni <- NA
-  
-  # crown ratio
-  # vectors of length 2 with limits for ideal [1] and minimal [2] profile
-  nais_profile$suptr_cr$aalb <- c(NA, NA)
-  nais_profile$suptr_cr$pabi <- c(NA, NA)
-  nais_profile$suptr_cr$coni <- c(1, 0.67)
-  
-  # seedlings
-  # share of gaps with seedlings, limit for ideal [1] and minimal [2] profile
-  nais_profile$seedl$share <- c(0.6, 0.6 * 0.8)
-  # species that should be present
-  nais_profile$seedl$species <- c("pabi")
-  # number of species that should be present for ideal [1] and minimal [2] profile
-  nais_profile$seedl$species_n <- c(1, 1)
-  
-  # saplings & thicket
-  nais_profile$sapthi <- nais_profile$mixture # canopy cover equals basal area share of mixture
-  nais_profile$sapthi$tot <- c(0.14, 0.11) # total cc of st, limit for ideal [1] and minimal [2] profile
-  
-  # diameter distribution
-  # vectors of length 4 with limits for D1 to D4
-  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1],
-                                rep((1 - nais_profile$sapthi$tot[1]) / 3, 3))
-  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2],
-                                  rep((1 - nais_profile$sapthi$tot[2]) / 3 * 0.85, 3))
+  if (param$sim_qual_site <= 3) {
+    d234 <- c(0.17, 0.12, 0.13)
+  } else {
+    d234 <- c(0.2, 0.14, 0.14)
+  }
+  nais_profile$va_dc$ideal <- c(nais_profile$sapthi$tot[1], d234)
+  nais_profile$va_dc$minimal <- c(nais_profile$sapthi$tot[2], d234)
   
   # canopy cover reduction factor
   nais_profile$cc_red <- 0.75
@@ -278,7 +213,7 @@ if (natural_hazard == "A") {
     filter(slope <= param$sim_slope) %>% 
     slice_max(order_by = slope, n = 1) %>%
     transpose() %>% 
-    extract2(1)
+    magrittr::extract2(1)
   
   nais_profile$A$gaplength <- c(gaplengths$ide, gaplengths$min) # limit for ideal [1] and minimal [2] profile
   rm(gaplengths_slope, gaplengths)
