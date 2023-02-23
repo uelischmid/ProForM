@@ -104,6 +104,21 @@ PROFORM_simulate <- function(simsettings,
         step_df <- f.mgm_RDC_tree()
       } else if (param$mgm_type == "RDC_cohort") {
         step_df <- f.mgm_RDC_cohort()
+      } else if (param$mgm_type == "single_tree_selection") {
+        step_df <- f.mgm_single_tree_selection()
+      } else if (param$mgm_type %in% c("group_selection", "slit_cuts")) {
+        if (unique(step_df$time_Step) == head(param$mgm_interv_steps, 1)) {
+          mgm_groups <- f.mgm_group_build_all()
+        }
+        step_df <- f.mgm_group_selection()
+      } else if (param$mgm_type == "cableyarding") {
+        if (unique(step_df$time_Step) == head(param$mgm_interv_steps, 1)) {
+          mgm_cables <- f.mgm_cy_cables()
+          mgm_groups <- f.mgm_group_build_all()
+          interv_nr <- 0
+        }
+        interv_nr <- interv_nr + 1
+        step_df <- f.mgm_cableyarding()
       }
     } else {
       step_df$mgm_N <- 0
@@ -380,6 +395,11 @@ PROFORM_simulate <- function(simsettings,
     
     if(param$mgm_type %in% c("RDC_tree", "RDC_cohort")) {
       res_mgm_RDC <- f.res_mgm_RDC()
+      
+    } else if (param$mgm_type %in% c("single_tree_selection",
+                                     "group_selection", "slit_cuts",
+                                     "cableyarding")) {
+      res_mgm_selection <- f.res_mgm_selection()
     }
   }
   
@@ -410,17 +430,17 @@ PROFORM_simulate <- function(simsettings,
   
   input_files <- str_c(input_folder, input_files)
   
-  file.copy(from = input_files,
-            to = str_c(output_folder, param$sim_name, "/1_input"),
+  file.copy(from      = input_files,
+            to        = str_c(output_folder, param$sim_name, "/1_input"),
             copy.date =  TRUE)
   
   # copy model code for reproducibility
   dir.create(str_c(output_folder, param$sim_name, "/2_modelcode"), showWarnings = FALSE)
-  file.copy(from = list.files(path = "code/simmodel", full.names = TRUE, recursive = FALSE),
-            to = str_c(output_folder, param$sim_name, "/2_modelcode"),
+  file.copy(from      = list.files(path = "code/simmodel", full.names = TRUE, recursive = FALSE),
+            to        = str_c(output_folder, param$sim_name, "/2_modelcode"),
             recursive = FALSE, copy.date = TRUE)
   
-  # save coordinates & results-dataframe
+  # save coordinates & results data frame
   dir.create(str_c(output_folder, param$sim_name, "/3_output"), showWarnings = FALSE)
   
   saveRDS(coordinates,
@@ -448,6 +468,17 @@ PROFORM_simulate <- function(simsettings,
                   str_c(output_folder, param$sim_name, "/3_output/summary_interv_spc.csv"))
       write_delim(res_mgm_RDC$mgm_summary_tot, delim = ";",
                   str_c(output_folder, param$sim_name, "/3_output/summary_interv_tot.csv"))
+    } else if (param$mgm_type %in% c("single_tree_selection", "group_selection", "slit_cuts",
+                                     "cableyarding")) {
+      write_delim(res_mgm_selection$mgm_summary_spc, delim = ";",
+                  str_c(output_folder, param$sim_name, "/3_output/summary_interv_spc.csv"))
+      write_delim(res_mgm_selection$mgm_summary_tot, delim = ";",
+                  str_c(output_folder, param$sim_name, "/3_output/summary_interv_tot.csv"))
+    }
+    
+    if (param$mgm_type %in% c("group_selection", "slit_cuts", "cableyarding")) {
+      saveRDS(mgm_groups,
+              str_c(output_folder, param$sim_name, "/3_output/mgm_groups.rds"))
     }
   }
   cat("----END----\n\n")
