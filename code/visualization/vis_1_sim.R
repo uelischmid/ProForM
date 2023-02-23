@@ -72,7 +72,14 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
   gg <- f.vis_ba_1sim(standdev = res_standdev,
                       capt     = param$sim_name,
                       dlimit   = 0)
-  ggsave(str_c(graph_folder, "01a_ba00.png"),
+  ggsave(str_c(graph_folder, "01a_ba00_abs.png"),
+         width = 5, height = 5, units = "cm",
+         scale = 3)
+  
+  gg <- f.vis_ba_1sim_rel(standdev = res_standdev,
+                          capt     = param$sim_name,
+                          dlimit   = 0)
+  ggsave(str_c(graph_folder, "01a_ba00_rel.png"),
          width = 5, height = 5, units = "cm",
          scale = 3)
   
@@ -80,7 +87,14 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
   gg <- f.vis_ba_1sim(standdev = res_standdev,
                       capt     = param$sim_name,
                       dlimit   = 12)
-  ggsave(str_c(graph_folder, "01b_ba12.png"),
+  ggsave(str_c(graph_folder, "01b_ba12_abs.png"),
+         width = 5, height = 5, units = "cm",
+         scale = 3)
+  
+  gg <- f.vis_ba_1sim_rel(standdev = res_standdev,
+                          capt     = param$sim_name,
+                          dlimit   = 12)
+  ggsave(str_c(graph_folder, "01b_ba12_rel.png"),
          width = 5, height = 5, units = "cm",
          scale = 3)
   
@@ -107,7 +121,14 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
   gg <- f.vis_sn_1sim(standdev = res_standdev,
                       capt     = param$sim_name,
                       dlimit   = 0)
-  ggsave(str_c(graph_folder, "03a_sn00.png"),
+  ggsave(str_c(graph_folder, "03a_sn00_abs.png"),
+         width = 5, height = 5, units = "cm",
+         scale = 3)
+  
+  gg <- f.vis_sn_1sim_rel(standdev = res_standdev,
+                          capt     = param$sim_name,
+                          dlimit   = 0)
+  ggsave(str_c(graph_folder, "03a_sn00_rel.png"),
          width = 5, height = 5, units = "cm",
          scale = 3)
   
@@ -116,7 +137,14 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
   gg <- f.vis_sn_1sim(standdev = res_standdev,
                       capt     = param$sim_name,
                       dlimit   = 12)
-  ggsave(str_c(graph_folder, "03b_sn12.png"),
+  ggsave(str_c(graph_folder, "03b_sn12_abs.png"),
+         width = 5, height = 5, units = "cm",
+         scale = 3)
+  
+  gg <- f.vis_sn_1sim_rel(standdev = res_standdev,
+                          capt     = param$sim_name,
+                          dlimit   = 12)
+  ggsave(str_c(graph_folder, "03b_sn12_rel.png"),
          width = 5, height = 5, units = "cm",
          scale = 3)
   
@@ -191,8 +219,8 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
          scale = 3)
   
   
-  # plot mgm-DBH-distributions ----------------------------------------------
-  if (param$mgm_type != "none") {
+  if(param$mgm_type != "none") {
+    # plot mgm-DBH-distributions ----------------------------------------------
     cat("plot intervention DBH-distributions\n")
     gg <- f.vis_mgmdd_1sim(mgmres  = res_mgm,
                            dlimit  = 12,
@@ -201,12 +229,22 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
            width = 7,
            height = 1.5 * (ceiling(length(param$mgm_interv_steps) / 2) + 1),
            units = "cm",
-           scale = 3)
-  }
+           scale = 3,
+           limitsize = FALSE)
     
-  
-  # plot intervention maps --------------------------------------------------
-  if (param$mgm_type != "none") {
+    if (param$mgm_type %in% c("RDC_tree", "RDC_cohort")) {
+      gg <- f.vis_mgmrdc_1sim(mgmres   = res_mgm,
+                              mgminstr = mgm_instructions,
+                              capt     = param$sim_name)
+      ggsave(str_c(graph_folder, "09b_mgm_ddistrRDC.png"),
+             width = 7,
+             height = 1.5 * (ceiling(length(param$mgm_interv_steps) / 2) + 1),
+             units = "cm",
+             scale = 3)
+    }
+    
+    
+    # plot intervention maps --------------------------------------------------
     cat("plot intervention maps\n")
     gg <- f.vis_mgmmps_1sim(mgmres  = res_mgm,
                             coor    = coordinates,
@@ -215,8 +253,10 @@ PROFORM_vis_1_sim <- function(simulation, plot_interval, out_subfolder) {
            width = 7,
            height = 1.5 * (ceiling(length(param$mgm_interv_steps) / 2) + 1),
            units = "cm",
-           scale = 3)
+           scale = 3,
+           limitsize = FALSE)
   }
+ 
 }
 
 

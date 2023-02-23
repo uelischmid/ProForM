@@ -6,8 +6,8 @@
 
 
 PROFORM_vis_n_sim <- function(simulations, names, comb_name,
-                              plot_start, plot_end, plot_interval,
-                              out_subfolder) {
+                               plot_start, plot_end, plot_interval,
+                               out_subfolder) {
   # setup -------------------------------------------------------------------
   suppressWarnings(suppressMessages(library(tidyverse)))
   
