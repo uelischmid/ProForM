@@ -9,7 +9,7 @@
 library(tidyverse)
 
 subfolder_simsettings <- "examples/" # subfolder within simsettings/-folder
-  files_simsettings <- list.files(str_c("data/processed/simsettings/", subfolder_simsettings))
+files_simsettings <- list.files(str_c("data/processed/simsettings/", subfolder_simsettings))
 
 # run simulations ---------------------------------------------------------
 paths_simsettings <- str_c(subfolder_simsettings, files_simsettings)
