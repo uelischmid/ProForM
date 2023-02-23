@@ -184,3 +184,49 @@ f.res_mgm_RDC <- function(r_mgm = res_mgm,
   
   return(out)
 }
+
+
+f.res_mgm_selection <- function(r_mgm = res_mgm,
+                                p     = param) {
+  ## Inputs
+  # r_mgm: management output as from f.res_mgm_general()
+  # p:     full parameter-list
+  
+  ## Output
+  # out: list with details of selection-type-management
+  #   out$mgm_summary_spc: summary by species
+  #   out$mgm_summary_tot: total summary
+  
+  mgm_summary_spc <- r_mgm %>% 
+    filter(time_Step %in% p$mgm_interv_steps) %>% 
+    group_by(time_Step, s2_Spc) %>% 
+    summarise(across(c(aux2_BA, mgm_BA, aux2_Vol, mgm_Vol, s2_N, mgm_N), sum, na.rm = TRUE),
+              .groups = "drop") %>% 
+    mutate(BA_mgm_perc  = round(100 * mgm_BA / aux2_BA, 2),
+           Vol_mgm_perc = round(100 * mgm_Vol / aux2_Vol, 2),
+           N_mgm_perc   = round(100 * mgm_N / s2_N, 2)) %>% 
+    select(time_Step, Species = s2_Spc,
+           BA_s2_m2 = aux2_BA, BA_mgm_m2 = mgm_BA, BA_mgm_perc,
+           Vol_s2_m3 = aux2_Vol, Vol_mgm_m3 = mgm_Vol, Vol_mgm_perc,
+           N_s2 = s2_N, N_mgm = mgm_N, N_mgm_perc)
+  
+  mgm_summary_tot <- r_mgm %>% 
+    filter(time_Step %in% p$mgm_interv_steps) %>% 
+    group_by(time_Step) %>% 
+    summarise(across(c(aux2_BA, mgm_BA, aux2_Vol, mgm_Vol, s2_N, mgm_N), sum, na.rm = TRUE),
+              .groups = "drop") %>% 
+    mutate(BA_mgm_perc  = round(100 * mgm_BA / aux2_BA, 2),
+           Vol_mgm_perc = round(100 * mgm_Vol / aux2_Vol, 2),
+           N_mgm_perc   = round(100 * mgm_N / s2_N, 2)) %>% 
+    select(time_Step,
+           BA_s2_m2 = aux2_BA, BA_mgm_m2 = mgm_BA, BA_mgm_perc,
+           Vol_s2_m3 = aux2_Vol, Vol_mgm_m3 = mgm_Vol, Vol_mgm_perc,
+           N_s2 = s2_N, N_mgm = mgm_N, N_mgm_perc)
+  
+  # assemble output
+  out <- list()
+  out$mgm_summary_spc <- mgm_summary_spc
+  out$mgm_summary_tot <- mgm_summary_tot
+  
+  return(out)
+}
