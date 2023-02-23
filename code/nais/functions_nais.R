@@ -92,6 +92,110 @@ f.gap_identify <- function(df_step_red) {
 }
 
 
+f.gap_build_groups_3c <- function(c_i) {
+  ## Inputs
+  # c_i: cell info
+  
+  ## Output
+  # groups: data frame with all potential groups of 3
+  
+  # build groups of 3
+  groups <- vector(mode = "list", length = nrow(c_i) * 2)
+  group_nr <- 1
+  
+  for (i in seq_along(c_i$cc_ID)) {
+    temp_cells_neighbors <- filter(c_i, cc_ID == i)
+    
+    for (j in 1:2) {
+      group_cells <- c(i, unlist(temp_cells_neighbors$cc_nIDs_r1)[c(j, j + 1)])
+      groups[[group_nr]] <- tibble(gr_ID     = group_nr,
+                                   gr_cc_IDs = group_cells)
+      group_nr <- group_nr + 1
+    }
+  }
+  groups <- bind_rows(groups)
+  return(groups)
+}
+
+
+f.gap_identify_3c <- function(groups, df_step_red) {
+  ## Inputs
+  # groups:      data frame with all potential groups of 3
+  # df_step_red: data frame with info on simulation state,
+  #              reduced to the larger cohort per cell
+  
+  ## Output
+  # gap_df: data frame with gap number per cell
+  
+  # identify cells that potentially form gaps
+  cells_pot_gaps <- df_step_red %>% 
+    mutate(pot_gap = case_when(Stage <= 3 ~ TRUE,
+                               TRUE       ~ FALSE)) %>% 
+    select(cc_ID, pot_gap)
+  
+  # identify groups that are part of gaps
+  gap_groups <- groups %>% 
+    left_join(cells_pot_gaps, by = c("gr_cc_IDs" = "cc_ID")) %>% 
+    group_by(gr_ID) %>% 
+    summarise(n_pot_gap_cells = sum(pot_gap)) %>% 
+    mutate(gap = case_when(n_pot_gap_cells == 3 ~ TRUE,
+                           TRUE                 ~ FALSE)) %>% 
+    filter(gap == TRUE) %>% 
+    pull(gr_ID)
+  
+  # identify cells that are part of gaps
+  gap_cells <- groups %>% 
+    filter(gr_ID %in% gap_groups) %>% 
+    pull(gr_cc_IDs) %>% 
+    unique()
+  
+  # identify and number individual gaps
+  gap_df <- df_step_red %>% 
+    select(cc_ID, cc_nIDs_r1) %>% 
+    mutate(cell_gap = case_when(cc_ID %in% gap_cells ~ TRUE,
+                                TRUE                 ~ FALSE)) %>% 
+    arrange(cc_ID)
+  gap_nr_current <- 1
+  gap_nr_vec <- rep(NA, times = nrow(gap_df))
+  
+  # loop over all cells
+  for (i in 1:nrow(gap_df)) {
+    nIDs_r1_current <- unlist(gap_df[i,]$cc_nIDs_r1) # extract neighbors as vector
+    
+    # jump to next if cell is no gap
+    if (gap_df[i,]$cell_gap == FALSE) next
+    
+    # extract gap nr of neighboring cells as vector without NAs
+    gap_nr_neighbors <- as.numeric(na.omit(gap_nr_vec[nIDs_r1_current]))
+    
+    if (length(gap_nr_neighbors) == 0) { # if no neighboring cells are have gap number
+      gap_nr_vec[i] <- gap_nr_current
+      gap_nr_current <- gap_nr_current + 1
+    } else { # if at least one neighboring cell has a gap number
+      gap_nr_vec[i] <- min(gap_nr_neighbors) # assign smallest gap number
+      
+      # if there are multiple gap numbers in neighborhood, merge all to smallest gap number
+      if (length(gap_nr_neighbors) > 1) { 
+        gap_nr_vec[gap_nr_vec %in% gap_nr_neighbors] <-  min(gap_nr_neighbors)
+      }
+    }
+  }
+  
+  # make gap numbers continuous
+  unique_gap_nr_old <- sort(unique(as.numeric(na.omit(gap_nr_vec))))
+  for (i in seq_along(unique_gap_nr_old)) {
+    gap_nr_vec[gap_nr_vec == unique_gap_nr_old[i]] <- i
+  }
+  
+  gap_df <- gap_df %>% 
+    mutate(gap_nr = gap_nr_vec) %>% 
+    filter(cell_gap == TRUE) %>% 
+    select(cc_ID, gap_nr)
+  
+  return(gap_df)
+}
+
+
 # gap metrics -------------------------------------------------------------
 f.gap_metrics_cell <- function(df_gaps, coor,
                                area   = TRUE,
@@ -331,7 +435,7 @@ f.gap_metrics_m <- function(gm_raw, hex_param, slope_deg,
   
   # calculate gap area
   if (area == TRUE) {
-    hex_area_slope <- 6 * 0.5 * flat_hex$size * (0.5 * flat_hex$height * dist_slope_multiplier)
+    hex_area_slope <- 6 * 0.5 * hex_param$size * (0.5 * hex_param$height * dist_slope_multiplier)
     
     gm_m <- gm_m %>% 
       mutate(area_m2 = gm_raw$area_n_cells * hex_area_slope)
@@ -692,6 +796,9 @@ f.nais_A <- function(df_step_red, gapmetrics, nais_pr, cc_red, p = param) {
   stand <- list()
   stand$n_gaps_not_ideal <- n_gaps_not_ideal
   stand$n_gaps_not_minimal <- n_gaps_not_minimal
+  stand$gap_length_ext_max <- NA
+  stand$gap_length_max <- NA
+  stand$gap_area_max <- NA
   stand$cc <- sum(df_step_red$Stage >= 4) / nrow(df_step_red) * cc_red
   
   ## compare to profile
@@ -834,6 +941,9 @@ f.nais_LED <- function(df_step, df_step_red, gapmetrics, gaps_cells, nais_pr_led
   stand <- list()
   stand$n_gaps_not_ideal <- n_gaps_not_ideal
   stand$n_gaps_not_minimal <- n_gaps_not_minimal
+  stand$gap_length_ext_max <- NA
+  stand$gap_length_max <- NA
+  stand$gap_area_max <- NA
   stand$cc <- sum(df_step_red$Stage >= 4) / nrow(df_step_red) * cc_red
   
   ## compare to profile
@@ -895,7 +1005,12 @@ f.nais_RF_gap <- function(gapmetrics, nais_pr) {
   
   # prepare data: maximal gap length
   stand <- list()
+  stand$n_gaps_not_ideal <- NA
+  stand$n_gaps_not_minimal <- NA
   stand$gap_length_ext_max <- max(gapmetrics$len_max_ext_m)
+  stand$gap_length_max <- NA
+  stand$gap_area_max <- NA
+  stand$cc <- NA
   
   # compare profile to stand
   res <- list()
@@ -943,6 +1058,9 @@ f.nais_TF <- function(df_step_red, gapmetrics, nais_pr, cc_red) {
   
   # prepare data
   stand <- list()
+  stand$n_gaps_not_ideal <- NA
+  stand$n_gaps_not_minimal <- NA
+  stand$gap_length_ext_max <- NA
   stand$gap_length_max <- max(gapmetrics$len_max_m)
   stand$gap_area_max <- max(gapmetrics$area_m2)
   stand$cc <- sum(df_step_red$Stage >= 4) / nrow(df_step_red) * cc_red
