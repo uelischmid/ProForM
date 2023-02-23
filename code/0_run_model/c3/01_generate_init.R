@@ -19,7 +19,7 @@ source("code/prepmgm/mgm_c3_su_eq_BG.R")
 rm(list = ls())
 
 # run simulations
-source("code/run_model/1_simulation/simulation_batch_runs_c3_su_eq_BG.R")
+source("code/0_run_model/1_simulation/simulation_batch_runs_c3_su_eq_BG.R")
 rm(list = ls())
 
 
@@ -39,22 +39,22 @@ source("code/prepmgm/mgm_c3_su_eq_mgm.R")
 rm(list = ls())
 
 # run simulations
-source("code/run_model/1_simulation/simulation_batch_runs_c3_su_eq_mgm.R")
+source("code/0_run_model/1_simulation/simulation_batch_runs_c3_su_eq_mgm.R")
 rm(list = ls())
 
 
 
 # NaiS-assessment of eq_mgm to determine time Step for init ST2 -----------
 # prepare
-source("code/run_model/2_nais_assessment/nais_c3_su_eq_mgm_1_prep.R")
+source("code/0_run_model/2_nais_assessment/nais_c3_su_eq_mgm_1_prep.R")
 rm(list = ls())
 
 # assess
-source("code/run_model/2_nais_assessment/nais_c3_su_eq_mgm_2_assess.R")
+source("code/0_run_model/2_nais_assessment/nais_c3_su_eq_mgm_2_assess.R")
 rm(list = ls())
 
 # visualize
-source("code/run_model/2_nais_assessment/nais_c3_su_eq_mgm_3_vis.R")
+source("code/0_run_model/2_nais_assessment/nais_c3_su_eq_mgm_3_vis.R")
 rm(list = ls())
 
 # determine years
