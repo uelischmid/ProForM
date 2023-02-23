@@ -144,7 +144,9 @@ f.init_load_mgm <- function(folder   = str_c(input_folder, "mgm/"),
   # mgm_instructions: management instructions
   
   if (!(mgm_type %in% c("none",
-                        "RDC_tree", "RDC_cohort"))) stop("mgm_type unknown")
+                        "RDC_tree", "RDC_cohort",
+                        "single_tree_selection", "group_selection",
+                        "slit_cuts", "cableyarding"))) stop("mgm_type unknown")
   
   if (mgm_type == "none") {
     mgm_instructions <- NA
@@ -157,7 +159,15 @@ f.init_load_mgm <- function(folder   = str_c(input_folder, "mgm/"),
                                    Dclass_rel      = col_double(),
                                    BA_share_marked = col_double()
                                  ))
+  } else {
+    mgm_instructions <- read_delim(str_c(folder, filepath),
+                                   delim = ";",
+                                   col_types = cols_only(
+                                     parameter       = col_character(),
+                                     value           = col_double()
+                                   ))
   }
+  
   return(mgm_instructions)
 }
 
@@ -229,8 +239,96 @@ f.init_calculate_param <- function(p_sim    = param_sim,
   # management parameters
   if (p_sim2$mgm_type == "none") {
     p_sim2$mgm_interv_steps <- NA
+    
   } else if (p_sim2$mgm_type %in% c("RDC_tree", "RDC_cohort")) {
     p_sim2$mgm_interv_steps <- sort(unique(mgm_inst$time_Step))
+    
+  } else if (p_sim2$mgm_type == "single_tree_selection") {
+    interv_steps <- filter(mgm_inst, parameter == "mgm_time_start") %>% pull(value)
+    interv_interval <- filter(mgm_inst, parameter == "mgm_time_interval") %>% pull(value)
+    while (tail(interv_steps, 1) + interv_interval <= p_sim2$sim_time) {
+      interv_steps <- c(interv_steps, tail(interv_steps, 1) + interv_interval)
+    }
+    p_sim2$mgm_interv_steps <- interv_steps
+    p_sim2$mgm_int <- filter(mgm_inst, parameter == "mgm_int") %>% pull(value)
+    p_sim2$mgm_minD <- filter(mgm_inst, parameter == "mgm_minD") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_aalb <- filter(mgm_inst, parameter == "mgm_min_spc_sh_aalb") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_pabi <- filter(mgm_inst, parameter == "mgm_min_spc_sh_pabi") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_fsyl <- filter(mgm_inst, parameter == "mgm_min_spc_sh_fsyl") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_apse <- filter(mgm_inst, parameter == "mgm_min_spc_sh_apse") %>% pull(value)
+    p_sim2$mgm_buffer <- filter(mgm_inst, parameter == "mgm_buffer") %>% pull(value)
+    p_sim2$mgm_w_spc <- filter(mgm_inst, parameter == "mgm_w_spc") %>% pull(value)
+    p_sim2$mgm_w_BA <- filter(mgm_inst, parameter == "mgm_w_BA") %>% pull(value)
+    p_sim2$mgm_w_CR <- filter(mgm_inst, parameter == "mgm_w_CR") %>% pull(value)
+
+  } else if (p_sim2$mgm_type == "group_selection") {
+    interv_steps <- filter(mgm_inst, parameter == "mgm_time_start") %>% pull(value)
+    interv_interval <- filter(mgm_inst, parameter == "mgm_time_interval") %>% pull(value)
+    while (tail(interv_steps, 1) + interv_interval <= p_sim2$sim_time) {
+      interv_steps <- c(interv_steps, tail(interv_steps, 1) + interv_interval)
+    }
+    p_sim2$mgm_interv_steps <- interv_steps
+    p_sim2$mgm_int <- filter(mgm_inst, parameter == "mgm_int") %>% pull(value)
+    p_sim2$mgm_minD <- filter(mgm_inst, parameter == "mgm_minD") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_aalb <- filter(mgm_inst, parameter == "mgm_min_spc_sh_aalb") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_pabi <- filter(mgm_inst, parameter == "mgm_min_spc_sh_pabi") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_fsyl <- filter(mgm_inst, parameter == "mgm_min_spc_sh_fsyl") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_apse <- filter(mgm_inst, parameter == "mgm_min_spc_sh_apse") %>% pull(value)
+    p_sim2$mgm_agg <- filter(mgm_inst, parameter == "mgm_agg") %>% pull(value)
+    p_sim2$mgm_buffer <- filter(mgm_inst, parameter == "mgm_buffer") %>% pull(value)
+    p_sim2$mgm_w_spc <- filter(mgm_inst, parameter == "mgm_w_spc") %>% pull(value)
+    p_sim2$mgm_w_BA <- filter(mgm_inst, parameter == "mgm_w_BA") %>% pull(value)
+    p_sim2$mgm_w_CR <- filter(mgm_inst, parameter == "mgm_w_CR") %>% pull(value)
+    p_sim2$mgm_w_reg_gr <- filter(mgm_inst, parameter == "mgm_w_reg_gr") %>% pull(value)
+    p_sim2$mgm_w_reg_nb <- filter(mgm_inst, parameter == "mgm_w_reg_nb") %>% pull(value)
+    
+  } else if (p_sim2$mgm_type == "slit_cuts") {
+    interv_steps <- filter(mgm_inst, parameter == "mgm_time_start") %>% pull(value)
+    interv_interval <- filter(mgm_inst, parameter == "mgm_time_interval") %>% pull(value)
+    while (tail(interv_steps, 1) + interv_interval <= p_sim2$sim_time) {
+      interv_steps <- c(interv_steps, tail(interv_steps, 1) + interv_interval)
+    }
+    p_sim2$mgm_interv_steps <- interv_steps
+    p_sim2$mgm_int <- filter(mgm_inst, parameter == "mgm_int") %>% pull(value)
+    p_sim2$mgm_minD <- filter(mgm_inst, parameter == "mgm_minD") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_aalb <- filter(mgm_inst, parameter == "mgm_min_spc_sh_aalb") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_pabi <- filter(mgm_inst, parameter == "mgm_min_spc_sh_pabi") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_fsyl <- filter(mgm_inst, parameter == "mgm_min_spc_sh_fsyl") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_apse <- filter(mgm_inst, parameter == "mgm_min_spc_sh_apse") %>% pull(value)
+    p_sim2$mgm_slit_length <- filter(mgm_inst, parameter == "mgm_slit_length") %>% pull(value)
+    p_sim2$mgm_slit_width <- filter(mgm_inst, parameter == "mgm_slit_width") %>% pull(value)
+    p_sim2$mgm_buffer <- filter(mgm_inst, parameter == "mgm_buffer") %>% pull(value)
+    p_sim2$mgm_w_spc <- filter(mgm_inst, parameter == "mgm_w_spc") %>% pull(value)
+    p_sim2$mgm_w_BA <- filter(mgm_inst, parameter == "mgm_w_BA") %>% pull(value)
+    p_sim2$mgm_w_CR <- filter(mgm_inst, parameter == "mgm_w_CR") %>% pull(value)
+    p_sim2$mgm_w_reg_gr <- filter(mgm_inst, parameter == "mgm_w_reg_gr") %>% pull(value)
+    p_sim2$mgm_w_reg_nb <- filter(mgm_inst, parameter == "mgm_w_reg_nb") %>% pull(value)
+    
+  } else if (p_sim2$mgm_type == "cableyarding") {
+    interv_steps <- filter(mgm_inst, parameter == "mgm_time_start") %>% pull(value)
+    interv_interval <- filter(mgm_inst, parameter == "mgm_time_interval") %>% pull(value)
+    while (tail(interv_steps, 1) + interv_interval <= p_sim2$sim_time) {
+      interv_steps <- c(interv_steps, tail(interv_steps, 1) + interv_interval)
+    }
+    p_sim2$mgm_interv_steps <- interv_steps
+    p_sim2$mgm_int <- filter(mgm_inst, parameter == "mgm_int") %>% pull(value)
+    p_sim2$mgm_minD <- filter(mgm_inst, parameter == "mgm_minD") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_aalb <- filter(mgm_inst, parameter == "mgm_min_spc_sh_aalb") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_pabi <- filter(mgm_inst, parameter == "mgm_min_spc_sh_pabi") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_fsyl <- filter(mgm_inst, parameter == "mgm_min_spc_sh_fsyl") %>% pull(value)
+    p_sim2$mgm_min_spc_sh_apse <- filter(mgm_inst, parameter == "mgm_min_spc_sh_apse") %>% pull(value)
+    mgm_cable_cols <- c(filter(mgm_inst, parameter == "mgm_cable_col_1") %>% pull(value),
+                        filter(mgm_inst, parameter == "mgm_cable_col_2") %>% pull(value),
+                        filter(mgm_inst, parameter == "mgm_cable_col_3") %>% pull(value))
+    p_sim2$mgm_cable_cols <- mgm_cable_cols[!is.na(mgm_cable_cols)]
+    p_sim2$mgm_cable_seq <- rep(seq_along(p_sim2$mgm_cable_cols),
+                                length.out = length(p_sim2$mgm_interv_steps))
+    p_sim2$mgm_slit_length <- filter(mgm_inst, parameter == "mgm_slit_length") %>% pull(value)
+    p_sim2$mgm_slit_width <- filter(mgm_inst, parameter == "mgm_slit_width") %>% pull(value)
+    p_sim2$mgm_buffer <- filter(mgm_inst, parameter == "mgm_buffer") %>% pull(value)
+    p_sim2$mgm_w_BA <- filter(mgm_inst, parameter == "mgm_w_BA") %>% pull(value)
+    p_sim2$mgm_w_reg_gr <- filter(mgm_inst, parameter == "mgm_w_reg_gr") %>% pull(value)
+    p_sim2$mgm_w_reg_nb <- filter(mgm_inst, parameter == "mgm_w_reg_nb") %>% pull(value)
   }
   
   # prefactors
