@@ -1,0 +1,18 @@
+parameter;value;unit;type;explanation
+mgm_time_start;;years;integer;intervention timing: year (time step) in which first intervention will take place
+mgm_time_interval;;years;integer;intervention timing: interval in years (time steps) between management interventions
+mgm_int;;-;double;share of total stand BA to be harvested
+mgm_minD;;cm;double;minimal DBH to be harvested
+mgm_min_spc_sh_aalb;;-;double;Minimum share of aalb before intervention below which it is exempt from harvest
+mgm_min_spc_sh_apse;;-;double;Minimum share of apse before intervention below which it is exempt from harvest
+mgm_min_spc_sh_fsyl;;-;double;Minimum share of fsyl before intervention below which it is exempt from harvest
+mgm_min_spc_sh_pabi;;-;double;Minimum share of pabi before intervention below which it is exempt from harvest
+mgm_cable_col_1;;-;integer;Column of simulation grid where first cable is located. NA if not applicable
+mgm_cable_col_2;;-;integer;Column of simulation grid where second cable is located. NA if not applicable
+mgm_cable_col_3;;-;integer;Column of simulation grid where third cable is located. NA if not applicable
+mgm_slit_length;;-;integer;Length of the slit perpendicular to the slope in number of cells
+mgm_slit_width;;-;integer;Width of the slit downslope in number of cells
+mgm_buffer;;-;integer;Initial number of cells as buffer between harvested groups (0-2)
+mgm_w_BA;;-;integer;relative weight attributed based on group's BA, higher weight to higher BA
+mgm_w_reg_gr;;-;integer;relative weight attributed based on the share of regenration cohorts within a group, higher weight to more regeneration
+mgm_w_reg_nb;;-;integer;relative weith attributed based on the share of regeneration cells among immediate neighbors, higher weight to less regeneration

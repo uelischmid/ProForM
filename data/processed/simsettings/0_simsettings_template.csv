@@ -1,0 +1,20 @@
+parameter;value;unit;type;explanation
+sim_name;;NA;string;simulation name, used for naming output folder
+sim_init;;NA;string;path to CSV-file containing initialisation data within init/-subfolder
+sim_param;;NA;string;path to CSV-file containing forest dynamics parameter values within paramfordyn/-subfolder
+sim_time;;years;integer;number of time steps to be simulated
+sim_seed;;NA;integer;seed for random number generator
+sim_stratum;;NA;string;name of stratum
+sim_cells_nrow;;NA;integer;number of rows of cells that make up simulation area
+sim_cells_ncol;;NA;integer;EVEN number of columns of cells that make up simulation area
+sim_aspect;;degree;integer;aspect of simulated plane in degrees from north
+sim_slope;;degree;integer;slope angle of simulated plane in degrees
+sim_qual_site;;NA;integer;site quality from 1 (bad) to 5 (good)
+sim_qual_reg;;NA;integer;regeneration quality from 1 (bad) to 5 (good)
+spc_sh_aalb;;percent;integer;"share of Abies alba in ""natural"" regeneration"
+spc_sh_apse;;percent;integer;"share of Acer pseudoplatanus in ""natural"" regeneration"
+spc_sh_fsyl;;percent;integer;"share of Fagus sylvatica in ""natural"" regeneration"
+spc_sh_pabi;;percent;integer;"share of Picea abies in ""natural"" regeneration"
+spc_pressure;;percent;integer;"pressure of ""natural"" regeneration vs. current stand composition"
+mgm_type;;NA;string;"management type: either ""none"", ""RDC_tree"", ""RDC_cohort"",  ""single_tree_selection"", ""group_selection"", ""slit_cuts"", or ""cableyarding"""
+mgm_param;;NA;string;path to CSV-file containing management parameter values within mgm/-subfolder
