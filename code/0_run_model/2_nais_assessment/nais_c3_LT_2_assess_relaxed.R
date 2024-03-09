@@ -34,14 +34,14 @@ rockfall_scenarios <- rep(NA, length(nais_preps))
 
 
 # run assessment ----------------------------------------------------------
-source("code/nais/nais_assess.R")
+source("code/nais/nais_assess_relaxed.R")
 
 time_start <- Sys.time()
 for (i in seq_along(nais_preps)) {
   cat(str_c("ASSESS ", i, "/", length(nais_preps), ": ", nais_preps[i], " - ", nat_haz[i],  "\n"))
-  PROFORM_NaiS_assess(nais_prep         = nais_preps[i],
-                      natural_hazard    = nat_haz[i],
-                      rockfall_scenario = rockfall_scenarios[i])
+  PROFORM_NaiS_assess_relaxed(nais_prep         = nais_preps[i],
+                              natural_hazard    = nat_haz[i],
+                              rockfall_scenario = rockfall_scenarios[i])
 }
 time_end <- Sys.time()
 cat("\nBatch run ended.\n",
