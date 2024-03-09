@@ -37,25 +37,36 @@ rm(list = ls())
 
 
 # ST sim: run simulations -------------------------------------------------
+# run simulations
 source("code/0_run_model/1_simulation/simulation_batch_runs_c3_ST_def.R")
 rm(list = ls())
 
+# visualize
+source("code/0_run_model/3_visualization/1_sim/visualization_2_sim_c3_batch_runs_ST.R")
+rm(list = ls())
 
 # ST sim: nais analysis ---------------------------------------------------
 # prepare
 source("code/0_run_model/2_nais_assessment/nais_c3_ST_def_1_prep.R")
 rm(list = ls())
 
-# analyze
-source("code/0_run_model/2_nais_assessment/nais_c3_ST_def_2_assess.R")
+# assess
+source("code/0_run_model/2_nais_assessment/nais_c3_ST_def_2_assess_relaxed.R")
 rm(list = ls())
 
 
 # analysis ----------------------------------------------------------------
 # analysis of ST
-source("code/analysis/c3_analysis_ST.R")
+source("code/analysis/c3_analysis_ST_relaxed.R")
 rm(list = ls())
 
-# visualization
-source("code/visualization/c3/c3_vis_ST.R")
+
+# visualize nais ----------------------------------------------------------
+# visualize F2
+source("code/0_run_model/3_visualization/2_nais/visualization_n_nais_F2_batch_runs_c3_ST.R")
 rm(list = ls())
+
+# visualize gaps
+source("code/0_run_model/3_visualization/2_nais/visualization_2_nais_gaps_batch_runs_c3_ST.R")
+rm(list = ls())
+
