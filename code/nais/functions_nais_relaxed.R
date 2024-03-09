@@ -807,7 +807,7 @@ f.nais_A <- function(df_step_red, gapmetrics, nais_pr, cc_red, p = param) {
   # gap-criterion (length and width)
   if (stand$n_gaps_not_ideal == 0) {
     res$gap <- 1
-  } else if (stand$n_gaps_not_minimal == 0) {
+  } else if (stand$n_gaps_not_minimal <= 1) {
     res$gap <- 0
   } else {
     res$gap <- -1
@@ -956,7 +956,7 @@ f.nais_LED <- function(df_step, df_step_red, gapmetrics, gaps_cells, nais_pr_led
   # gap-criterion (size and regeneration)
   if (stand$n_gaps_not_ideal == 0) {
     res$gap_a <- 1
-  } else if (stand$n_gaps_not_minimal == 0) {
+  } else if (stand$n_gaps_not_minimal <= 1) {
     res$gap_a <- 0
   } else {
     res$gap_a <- -1
@@ -1261,12 +1261,8 @@ f.nais_seedl <- function(df_step, df_step_red, nais_pr, p = param) {
     filter(Stage <= 1) %>% 
     pull(cc_ID)
   
-  # calculate share of cells with seedlings (irrespective of species)
-  seedl_gap_sha <- df_step %>% 
-    filter(cc_ID %in% gapcells_potreg) %>%
-    filter(Stage == 1) %>% 
-    pull(cc_ID) %>% 
-    n_distinct() / length(gapcells_potreg)
+  # # calculate share of cells with seedlings (irrespective of species) (deprecated)
+  seedl_gap_sha <- NA
   
   # check species present as seedlings
   seedl_gap_spc <- df_step %>% 
@@ -1284,14 +1280,8 @@ f.nais_seedl <- function(df_step, df_step_red, nais_pr, p = param) {
     res$seedl_sha <- NA
     res$seedl_spc <- NA
   } else {
-    # share of gaps with seedlings
-    if (seedl_gap_sha >= nais_pr$share[1]) {
-      res$seedl_sha <- 1
-    } else if (seedl_gap_sha >= nais_pr$share[2]) {
-      res$seedl_sha <- 0
-    } else {
-      res$seedl_sha <- -1
-    }
+    # share of gaps with seedlings (deprecated)
+    res$seedl_sha <- NA
     
     # species present
     if (sum(seedl_gap_spc %in% nais_pr$species) >= nais_pr$species_n[1]) {
@@ -1304,15 +1294,16 @@ f.nais_seedl <- function(df_step, df_step_red, nais_pr, p = param) {
   }
   
   # overall
-  res$seedl <- mean(c(res$seedl_sha,
-                      res$seedl_spc),
-                    na.rm = TRUE)
+  # res$seedl <- mean(c(res$seedl_sha,
+  #                     res$seedl_spc),
+  #                   na.rm = TRUE)
+  res$seedl <- res$seedl_spc
   
-  # assure that partial values beneath 0 cannot be compensated
-  if (res$seedl >= 0 & sum(c(res$seedl_sha,
-                             res$seedl_spc) < 0, na.rm = TRUE) > 0) {
-    res$seedl <- -0.1
-  }
+  # # assure that partial values beneath 0 cannot be compensated
+  # if (res$seedl >= 0 & sum(c(res$seedl_sha,
+  #                            res$seedl_spc) < 0, na.rm = TRUE) > 0) {
+  #   res$seedl <- -0.1
+  # }
   
   # combine stand and result
   out <- list()
@@ -1379,88 +1370,98 @@ f.nais_sapthi <- function(appl, df_step, nais_pr, p = param) {
   }
   
   # mixture of s/t
-  # handle no s/t
-  if (nrow(df_step_st) == 0) {
+  if (appl == "stand") {
+    # handle no s/t
+    if (nrow(df_step_st) == 0) {
+      res$st_mix_aalb <- NA
+      res$st_mix_apse <- NA
+      res$st_mix_fsyl <- NA
+      res$st_mix_pabi <- NA
+      res$st_mix_coni <- NA
+      res$st_mix <- NA
+    } else {
+      # aalb
+      if (is.na(nais_pr$aalb[1])) { # aalb not defined in profile
+        res$st_mix_aalb <- NA
+      } else { # aalb defined in profile
+        if (st_cc$aalb >= nais_pr$aalb[1] & st_cc$aalb <= nais_pr$aalb[2]) {
+          res$st_mix_aalb <- 1
+        } else if (st_cc$aalb >= nais_pr$aalb[3] & st_cc$aalb <= nais_pr$aalb[4]) {
+          res$st_mix_aalb <- 0
+        } else {
+          res$st_mix_aalb <- -1
+        }
+      }
+      
+      # apse
+      if (is.na(nais_pr$apse[1])) { # apse not defined in profile
+        res$st_mix_apse <- NA
+      } else { # apse defined in profile
+        if (st_cc$apse >= nais_pr$apse[1] & st_cc$apse <= nais_pr$apse[2]) {
+          res$st_mix_apse <- 1
+        } else if (st_cc$apse >= nais_pr$apse[3] & st_cc$apse <= nais_pr$apse[4]) {
+          res$st_mix_apse <- 0
+        } else {
+          res$st_mix_apse <- -1
+        }
+      }
+      
+      # fsyl
+      if (is.na(nais_pr$fsyl[1])) { # fsyl not defined in profile
+        res$st_mix_fsyl <- NA
+      } else { # fsyl defined in profile
+        if (st_cc$fsyl >= nais_pr$fsyl[1] & st_cc$fsyl <= nais_pr$fsyl[2]) {
+          res$st_mix_fsyl <- 1
+        } else if (st_cc$fsyl >= nais_pr$fsyl[3] & st_cc$fsyl <= nais_pr$fsyl[4]) {
+          res$st_mix_fsyl <- 0
+        } else {
+          res$st_mix_fsyl <- -1
+        }
+      }
+      
+      # pabi
+      if (is.na(nais_pr$pabi[1])) { # pabi not defined in profile
+        res$st_mix_pabi <- NA
+      } else { # pabi defined in profile
+        if (st_cc$pabi >= nais_pr$pabi[1] & st_cc$pabi <= nais_pr$pabi[2]) {
+          res$st_mix_pabi <- 1
+        } else if (st_cc$pabi >= nais_pr$pabi[3] & st_cc$pabi <= nais_pr$pabi[4]) {
+          res$st_mix_pabi <- 0
+        } else {
+          res$st_mix_pabi <- -1
+        }
+      }
+      
+      # coni
+      if (is.na(nais_pr$coni[1])) { # coni not defined in profile
+        res$st_mix_coni <- NA
+      } else { # coni defined in profile
+        if (st_cc$coni >= nais_pr$coni[1] & st_cc$coni <= nais_pr$coni[2]) {
+          res$st_mix_coni <- 1
+        } else if (st_cc$coni >= nais_pr$coni[3] & st_cc$coni <= nais_pr$coni[4]) {
+          res$st_mix_coni <- 0
+        } else {
+          res$st_mix_coni <- -1
+        }
+      }
+      
+      # mix overall
+      res$st_mix <- mean(c(res$st_mix_aalb,
+                           res$st_mix_apse,
+                           res$st_mix_fsyl,
+                           res$st_mix_pabi,
+                           res$st_mix_coni),
+                         na.rm = TRUE)
+    }
+  } else {
     res$st_mix_aalb <- NA
     res$st_mix_apse <- NA
     res$st_mix_fsyl <- NA
     res$st_mix_pabi <- NA
     res$st_mix_coni <- NA
     res$st_mix <- NA
-  } else {
-    # aalb
-    if (is.na(nais_pr$aalb[1])) { # aalb not defined in profile
-      res$st_mix_aalb <- NA
-    } else { # aalb defined in profile
-      if (st_cc$aalb >= nais_pr$aalb[1] & st_cc$aalb <= nais_pr$aalb[2]) {
-        res$st_mix_aalb <- 1
-      } else if (st_cc$aalb >= nais_pr$aalb[3] & st_cc$aalb <= nais_pr$aalb[4]) {
-        res$st_mix_aalb <- 0
-      } else {
-        res$st_mix_aalb <- -1
-      }
-    }
-    
-    # apse
-    if (is.na(nais_pr$apse[1])) { # apse not defined in profile
-      res$st_mix_apse <- NA
-    } else { # apse defined in profile
-      if (st_cc$apse >= nais_pr$apse[1] & st_cc$apse <= nais_pr$apse[2]) {
-        res$st_mix_apse <- 1
-      } else if (st_cc$apse >= nais_pr$apse[3] & st_cc$apse <= nais_pr$apse[4]) {
-        res$st_mix_apse <- 0
-      } else {
-        res$st_mix_apse <- -1
-      }
-    }
-    
-    # fsyl
-    if (is.na(nais_pr$fsyl[1])) { # fsyl not defined in profile
-      res$st_mix_fsyl <- NA
-    } else { # fsyl defined in profile
-      if (st_cc$fsyl >= nais_pr$fsyl[1] & st_cc$fsyl <= nais_pr$fsyl[2]) {
-        res$st_mix_fsyl <- 1
-      } else if (st_cc$fsyl >= nais_pr$fsyl[3] & st_cc$fsyl <= nais_pr$fsyl[4]) {
-        res$st_mix_fsyl <- 0
-      } else {
-        res$st_mix_fsyl <- -1
-      }
-    }
-    
-    # pabi
-    if (is.na(nais_pr$pabi[1])) { # pabi not defined in profile
-      res$st_mix_pabi <- NA
-    } else { # pabi defined in profile
-      if (st_cc$pabi >= nais_pr$pabi[1] & st_cc$pabi <= nais_pr$pabi[2]) {
-        res$st_mix_pabi <- 1
-      } else if (st_cc$pabi >= nais_pr$pabi[3] & st_cc$pabi <= nais_pr$pabi[4]) {
-        res$st_mix_pabi <- 0
-      } else {
-        res$st_mix_pabi <- -1
-      }
-    }
-    
-    # coni
-    if (is.na(nais_pr$coni[1])) { # coni not defined in profile
-      res$st_mix_coni <- NA
-    } else { # coni defined in profile
-      if (st_cc$coni >= nais_pr$coni[1] & st_cc$coni <= nais_pr$coni[2]) {
-        res$st_mix_coni <- 1
-      } else if (st_cc$coni >= nais_pr$coni[3] & st_cc$coni <= nais_pr$coni[4]) {
-        res$st_mix_coni <- 0
-      } else {
-        res$st_mix_coni <- -1
-      }
-    }
-    
-    # mix overall
-    res$st_mix <- mean(c(res$st_mix_aalb,
-                         res$st_mix_apse,
-                         res$st_mix_fsyl,
-                         res$st_mix_pabi,
-                         res$st_mix_coni),
-                       na.rm = TRUE)
   }
+  
   
   # st overall
   res$sapthi <- mean(c(res$st_cc,
@@ -1487,7 +1488,7 @@ f.nais_sapthi <- function(appl, df_step, nais_pr, p = param) {
   if (appl == "stand") {
     return(out)
   } else { # application to gaps
-    if (res$sapthi == 1) { # ideal profile fulfilled
+    if (res$st_cc == 1) { # ideal profile fulfilled
       return(TRUE)
     } else { # ideal profile not fulfilled
       return(FALSE)

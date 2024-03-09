@@ -30,7 +30,7 @@ if (param$sim_stratum == "SM") {
   nais_profile$suptr_cr$coni <- c(NA, NA)
   
   # seedlings
-  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile (deprecated)
   nais_profile$seedl$share <- c(1, 1 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("fsyl")
@@ -80,7 +80,7 @@ if (param$sim_stratum == "UM") {
   nais_profile$suptr_cr$coni <- c(0.67, NA)
   
   # seedlings
-  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile (deprecated)
   nais_profile$seedl$share <- c(1, 1 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("aalb", "apse", "fsyl")
@@ -123,7 +123,7 @@ if (param$sim_stratum == "HM") { # Haupt- und Nebenareal
   nais_profile$suptr_cr$coni <- c(0.67, 0.5)
   
   # seedlings
-  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile (deprecated)
   nais_profile$seedl$share <- c(0.9, 0.9 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("aalb", "pabi")
@@ -167,7 +167,7 @@ if (param$sim_stratum == "SA") {
   nais_profile$suptr_cr$coni <- c(1, 0.67)
   
   # seedlings
-  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile
+  # share of "gap-cells" with seedlings, limit for ideal [1] and minimal [2] profile (deprecated)
   nais_profile$seedl$share <- c(0.7, 0.7 * 0.8)
   # species that should be present
   nais_profile$seedl$species <- c("pabi")
