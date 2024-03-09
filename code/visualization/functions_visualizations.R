@@ -2101,21 +2101,19 @@ f.vis_nais_si_seedl <- function (np, st, tc, i_f) {
                    value   = np$seedl$share) %>% 
     mutate(Profile = factor(Profile, levels = c("MP", "IP")))
   
-  gg_p <- ggplot(st, aes(time_Step, seedl_gap_sha)) +
-    geom_line() +
-    geom_hline(data    = pr_val,
-               mapping = aes(yintercept = value,
-                             color      = Profile)) +
-    scale_y_continuous(limits = c(0, 1)) +
-    labs(title = "Gap cells w/ seedl.",
-         x     = "Time",
-         y     = "Gap cell share w/ seedl.") +
-    tc
-  
-  plots[[5]] <- get_legend(gg_p)
-  
-  plots[[1]] <- gg_p +
-    theme(legend.position = "none")
+  if(is.numeric(st$seedl_gap_sha)) {
+    plots[[1]] <- ggplot(st, aes(time_Step, seedl_gap_sha)) +
+      geom_line() +
+      geom_hline(data    = pr_val,
+                 mapping = aes(yintercept = value,
+                               color      = Profile)) +
+      scale_y_continuous(limits = c(0, 1)) +
+      labs(title = "Gap cells w/ seedl.",
+           x     = "Time",
+           y     = "Gap cell share w/ seedl.") +
+      tc +
+      theme(legend.position = "none")
+  }
   
   # stand species count
   pr_val <- tibble(Profile = c("IP", "MP"),
@@ -2128,7 +2126,7 @@ f.vis_nais_si_seedl <- function (np, st, tc, i_f) {
            spc_char  = map(spc_l, 1),
            spc_count = map_dbl(spc_char, ~ sum(. %in% np$seedl$species)))
   
-  plots[[2]] <- ggplot(stand_spc_count, aes(time_Step, spc_count)) +
+  gg_p <- ggplot(stand_spc_count, aes(time_Step, spc_count)) +
     geom_line() +
     geom_hline(data    = pr_val,
                mapping = aes(yintercept = value,
@@ -2137,17 +2135,23 @@ f.vis_nais_si_seedl <- function (np, st, tc, i_f) {
     labs(title = "Species in gaps",
          x     = "Time",
          y     = "# Species in gaps") +
-    tc +
+    tc
+  
+  plots[[5]] <- get_legend(gg_p)
+  plots[[2]] <- gg_p +
     theme(legend.position = "none")
   
+  
   # ind seedling share
-  plots[[3]] <- ggplot(i_f, aes(time_Step, seedl_sha)) +
-    geom_line() +
-    scale_y_continuous(limits = c(-1, 1)) +
-    labs(title = "ind seedl share",
-         x     = "Time",
-         y     = "Index value") +
-    tc
+  if (is.numeric(i_f$seedl_sha)) {
+    plots[[3]] <- ggplot(i_f, aes(time_Step, seedl_sha)) +
+      geom_line() +
+      scale_y_continuous(limits = c(-1, 1)) +
+      labs(title = "ind seedl share",
+           x     = "Time",
+           y     = "Index value") +
+      tc
+  }
   
   
   # ind species count
