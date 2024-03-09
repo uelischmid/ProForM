@@ -1,11 +1,12 @@
 ## analysis of LT
-## 6.2.23, us
+## relaxed assessment
+## 12.5.23, us
 
 
 # setup -------------------------------------------------------------------
 library(tidyverse)
 
-assessments <- list.dirs("data/processed/naisoutput/2_assessment/",
+assessments <- list.dirs("data/processed/naisoutput/2_assessment_relaxed/",
                          full.names = FALSE,
                          recursive  = FALSE)
 assessments <- assessments[str_detect(assessments, "c3_LT")]
@@ -22,7 +23,7 @@ for (i in seq_along(assessments)) {
   assessment_infos <- str_split(assessment, "_") %>% 
     magrittr::extract2(1)
   
-  nais_red <- read_rds(str_c("data/processed/naisoutput/2_assessment/",
+  nais_red <- read_rds(str_c("data/processed/naisoutput/2_assessment_relaxed/",
                              assessment, "/nais_indices_red.rds")) %>% 
     select(time_Step:sapthi)
   
@@ -91,4 +92,4 @@ for (i in seq_along(assessments)) {
 res <- bind_rows(res)
 
 write_rds(res,
-          "results/c3_analysis_LT/LT.rds")
+          "results/c3_analysis_LT/LT_relaxed.rds")
